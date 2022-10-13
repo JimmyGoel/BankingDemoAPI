@@ -1,4 +1,6 @@
-﻿using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Extensions;
+using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +23,10 @@ namespace PublicApi.Controllers
         {
             var result = await userServices.GetuserAsync();
             if (result.IsSuccess)
-                return Ok(result.clsUsers);
+            {
+                var retunstr = result.clsUsers.ToJson();
+                return Ok(retunstr);
+            }
             return NotFound();
         }
 
