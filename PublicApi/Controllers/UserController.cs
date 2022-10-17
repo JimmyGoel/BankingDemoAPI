@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Extensions;
 using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +11,14 @@ using System.Threading.Tasks;
 
 namespace PublicApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseAPIController
     {
         private readonly IUser userServices;
         public UserController(IUser _userServices)
         {
             this.userServices = _userServices;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> GetUsersAsync()
         {
             var result = await userServices.GetuserAsync();
@@ -29,7 +29,7 @@ namespace PublicApi.Controllers
             }
             return NotFound();
         }
-
+        [Authorize]
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetUsersAsync(int Id)
         {
