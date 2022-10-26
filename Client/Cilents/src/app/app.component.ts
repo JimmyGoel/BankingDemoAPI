@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { json } from 'body-parser';
+import { UserDetail } from './_modle/user';
+
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +13,16 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Banking App';
   users: any;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private accountService:AccountService) {
   }
   ngOnInit(): void {
-    this.getUser();
+   // this.getUser();
+    this.setCurrentUser();
   }
-
+  setCurrentUser() {
+    const user: UserDetail = JSON.parse(localStorage.getItem("users") as string);
+    this.accountService.setCurrentUser(user);
+  }
   getUser() {
     // this.http.get("http://localhost:7595/api/user").subscribe(
     // {
