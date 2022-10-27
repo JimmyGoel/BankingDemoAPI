@@ -28,7 +28,8 @@ namespace Infrastructure.Services
             try
             {
                 logger.LogInformation("Query user");
-                var users = await dbContext.Users.ToListAsync();
+                var users = await dbContext.Users
+                                .Include(p=>p.photos).ToListAsync();
                 if (users != null && users.Any())
                 {
                     logger?.LogInformation($"{users.Count} customer(s) found");

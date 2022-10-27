@@ -13,5 +13,6 @@ namespace Infrastructure.Data
         }
 
         public DbSet<clsUserEntity> Users { get; private set; }
+      //  public DbSet<Photo> photos { get; private set; }
     }
 }

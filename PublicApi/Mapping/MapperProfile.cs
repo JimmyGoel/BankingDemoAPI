@@ -22,7 +22,11 @@ namespace PublicApi.Mapping
                 .ForMember(dest => dest.PasswordSalt, opt => opt.MapFrom(src => HMA.Key))
                 .ReverseMap();
 
-                config.CreateMap<LoginDTO, clsUserEntity>()
+                config.CreateMap<LoginDTO, clsUserEntity>().ReverseMap();
+                config.CreateMap<Photo, PhotoDTO>().ReverseMap();
+                config.CreateMap<clsUserEntity,UserEntityDTO>()
+               .ForMember(dest=>dest.PhotoUrl,
+                opt=>opt.MapFrom(src=>src.photos.FirstOrDefault(x=>x.IsMain).Url))
                 .ReverseMap();
 
             });
