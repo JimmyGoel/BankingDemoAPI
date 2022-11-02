@@ -1,1 +1,5 @@
-<p>member-list works!</p>
+<div class="row">   
+    <div *ngFor="let member of userEntity" class="col-2">
+       <app-member-cart [member]="member"></app-member-cart>
+    </div>
+</div>

@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, ReplaySubject } from 'rxjs';
-import { UserDetail } from '../_modle/user';
+import { environment } from 'src/environments/environment';
+import { IUserDetail } from '../_modle/user';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = 'http://localhost:7595/api/';
+  baseUrl =environment.apiURl;
 
-  private currentUserSource = new ReplaySubject<UserDetail>(1);
+  private currentUserSource = new ReplaySubject<IUserDetail>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
 
@@ -18,9 +19,9 @@ export class AccountService {
 
 
   login(loginmodule: any) {
-    return this.http.post<UserDetail>(this.baseUrl + 'Account/Login-user', loginmodule).pipe
+    return this.http.post<IUserDetail>(this.baseUrl + 'Account/Login-user', loginmodule).pipe
       (
-        map((resp: UserDetail) => {
+        map((resp: IUserDetail) => {
           debugger;
           const user = resp;
           if (user) {
@@ -32,9 +33,9 @@ export class AccountService {
   }
 
   register(loginmodule: any) {
-    return this.http.post<UserDetail>(this.baseUrl + 'Account/registor-user', loginmodule).pipe
+    return this.http.post<IUserDetail>(this.baseUrl + 'Account/registor-user', loginmodule).pipe
       (
-        map((resp: UserDetail) => {
+        map((resp: IUserDetail) => {
           debugger;
           const user = resp;
           if (user) {
@@ -45,7 +46,7 @@ export class AccountService {
       );
   }
 
-  setCurrentUser(user:UserDetail){
+  setCurrentUser(user:IUserDetail){
     this.currentUserSource.next(user);
   }
   logout(){

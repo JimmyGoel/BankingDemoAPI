@@ -42,7 +42,10 @@ namespace PublicApi.Controllers
             var result = await userServices.GetuserAsync(Id);
 
             if (result.IsSuccess)
-                return Ok(result.clsUsers);
+            {
+                var objMap = mapper.Map<UserEntityDTO>(result.clsUsers);
+                return Ok(objMap.ToJson());
+            }
             return NotFound();
         }
     }

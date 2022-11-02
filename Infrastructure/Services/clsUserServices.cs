@@ -29,7 +29,7 @@ namespace Infrastructure.Services
             {
                 logger.LogInformation("Query user");
                 var users = await dbContext.Users
-                                .Include(p=>p.photos).ToListAsync();
+                                .Include(p => p.photos).ToListAsync();
                 if (users != null && users.Any())
                 {
                     logger?.LogInformation($"{users.Count} customer(s) found");
@@ -51,7 +51,8 @@ namespace Infrastructure.Services
             try
             {
                 logger.LogInformation("Query user");
-                var user = await dbContext.Users.FirstOrDefaultAsync(option => option.Id == Id);
+                var user = await dbContext.Users
+                     .Include(p => p.photos).FirstOrDefaultAsync(option => option.Id == Id);
                 if (user != null)
                 {
                     logger?.LogInformation($"{user} customer(s) found");

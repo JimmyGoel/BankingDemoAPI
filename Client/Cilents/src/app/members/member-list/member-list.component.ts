@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IUserEntity } from 'src/app/_modle/IuserEntity';
+import { UserentityService } from 'src/app/_services/userentity.service';
 
 @Component({
   selector: 'app-member-list',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberListComponent implements OnInit {
 
-  constructor() { }
+   userEntity:IUserEntity[] | undefined;
+  constructor(private userService:UserentityService) { }
 
   ngOnInit(): void {
+    this.getUserEntity();
+  }
+  getUserEntity(){
+    this.userService.getUserEntity().subscribe((resp) => {
+      this.userEntity=resp;
+    });
   }
 
 }

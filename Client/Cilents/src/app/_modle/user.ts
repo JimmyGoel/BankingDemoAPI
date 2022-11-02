@@ -1,4 +1,4 @@
-export interface UserDetail {
+export interface IUserDetail {
     userName: string,
-    Token: string
+    token: string
 }
