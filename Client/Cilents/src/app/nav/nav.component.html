@@ -8,8 +8,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" 
-       >
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <ng-container  *ngIf="AccountService.currentUser$ | async">
           <li class="nav-item">
             <a class="nav-link"  routerLink="/members" routerLinkActive="active">Matchs</a>
@@ -26,15 +25,15 @@
         </ng-container>
          
         </ul>
-        <div class="dropdown" *ngIf="AccountService.currentUser$ | async" dropdown>
+        <div class="dropdown" *ngIf="(AccountService.currentUser$ | async) as userEntity" dropdown>
             <div class="btn btn-danger dropdown-toggle" dropdownToggle 
             href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Welcome {{logedInUser | titlecase}}
+            Welcome {{userEntity.userName}}
             </div>
             <ul class="dropdown-menu" *dropdownMenu>
-              <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+              <li><a routerLink="/member/edit" class="dropdown-item" href="#">Edit Profile</a></li>
               <li><a class="dropdown-item" href="#" (click)="logout()" >Logout</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
             </ul>
           </div>
           

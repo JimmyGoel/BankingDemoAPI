@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 
 
 import { AccountService } from '../_services/account.service';
@@ -25,7 +26,12 @@ export class NavComponent implements OnInit {
       console.log(response);
       debugger;
       this.IsLogedIn = true;
-      this.logedInUser=JSON.parse(localStorage.getItem('users') as string)['userName']
+      // this.AccountService.currentUser$.pipe(take(2)).subscribe((membera:any) => {
+      //   debugger;
+      //   // This is for user login detail below not corret
+      //   this.logedInUser=membera.userName;
+      // })
+      // this.logedInUser=JSON.parse(localStorage.getItem('users') as string)['userName']
       this.router.navigateByUrl('/members');
     }, error => {
       console.log(error);

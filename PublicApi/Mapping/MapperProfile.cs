@@ -28,7 +28,7 @@ namespace PublicApi.Mapping
                .ForMember(dest=>dest.PhotoUrl,
                 opt=>opt.MapFrom(src=>src.photos.FirstOrDefault(x=>x.IsMain).Url))
                 .ReverseMap();
-
+                config.CreateMap<UserUpdateDTO, clsUserEntity>().ReverseMap();
             });
 
             return mappingConfig;

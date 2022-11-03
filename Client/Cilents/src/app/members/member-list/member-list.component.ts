@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IUserEntity } from 'src/app/_modle/IuserEntity';
 import { UserentityService } from 'src/app/_services/userentity.service';
 
@@ -9,16 +10,16 @@ import { UserentityService } from 'src/app/_services/userentity.service';
 })
 export class MemberListComponent implements OnInit {
 
-   userEntity:IUserEntity[] | undefined;
+   userEntity$: Observable< IUserEntity[]>;
   constructor(private userService:UserentityService) { }
 
   ngOnInit(): void {
-    this.getUserEntity();
+    this.userEntity$=this.userService.getUserEntity();
   }
-  getUserEntity(){
-    this.userService.getUserEntity().subscribe((resp) => {
-      this.userEntity=resp;
-    });
-  }
+  // getUserEntity(){
+  //   this.userService.getUserEntity().subscribe((resp) => {
+  //     this.userEntity=resp;
+  //   });
+  // }
 
 }

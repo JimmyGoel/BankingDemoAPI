@@ -9,6 +9,7 @@ using PublicApi.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PublicApi.Controllers
@@ -47,6 +48,19 @@ namespace PublicApi.Controllers
                 return Ok(objMap.ToJson());
             }
             return NotFound();
+        }
+        [HttpPut("{update-user}")]
+        public async Task<IActionResult> UpdateUserMember(UserUpdateDTO userUpdateDTO)
+        {
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await userServices.GetuserAsync(null,userName);
+            mapper.Map(userUpdateDTO, user.clsUsers);
+
+            var result= await userServices.UserUpdateDetails(user.clsUsers);
+            if (result.Issucess) { return NoContent(); }
+            return BadRequest("Fail to update");
+            
+
         }
     }
 }

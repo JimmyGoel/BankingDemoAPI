@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   title = 'Banking App';
   users: any;
   constructor(private http: HttpClient, private accountService:AccountService) {
+    //this.accountService.logout();
   }
   ngOnInit(): void {
    // this.getUser();

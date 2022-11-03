@@ -9,7 +9,8 @@ namespace ApplicationCore.Interfaces
     public interface IUser
     {
         Task<(bool IsSuccess, IEnumerable<clsUserEntity> clsUsers, string Errror)> GetuserAsync();
-        Task<(bool IsSuccess, clsUserEntity clsUsers, string Errror)> GetuserAsync(int Id);
+        Task<(bool IsSuccess, clsUserEntity clsUsers, string Errror)> GetuserAsync(int? Id, string userName=null);
+        Task<(bool Issucess,string error)> UserUpdateDetails(clsUserEntity clsUsers);
 
     }
 }

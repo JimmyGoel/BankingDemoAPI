@@ -46,13 +46,14 @@ namespace Infrastructure.Services
             }
         }
 
-        public async Task<(bool IsSuccess, clsUserEntity clsUsers, string Errror)> GetuserAsync(int Id)
+        public async Task<(bool IsSuccess, clsUserEntity clsUsers, string Errror)> GetuserAsync(int? Id, string userName = null)
         {
             try
             {
                 logger.LogInformation("Query user");
                 var user = await dbContext.Users
-                     .Include(p => p.photos).FirstOrDefaultAsync(option => option.Id == Id);
+                     .Include(p => p.photos).FirstOrDefaultAsync(option =>
+                     (Id == null ? option.userName == userName : option.Id == Id));
                 if (user != null)
                 {
                     logger?.LogInformation($"{user} customer(s) found");
@@ -67,6 +68,24 @@ namespace Infrastructure.Services
                 return (false, null, Ex.ToString());
                 throw new NotFoundExceptions();
             }
+        }
+
+
+
+        public async Task<(bool Issucess, string error)> UserUpdateDetails(clsUserEntity clsUsers)
+        {
+            try
+            {
+                dbContext.Entry(clsUsers).State = EntityState.Modified;
+                await dbContext.SaveChangesAsync();
+                return (true, "No Error");
+            }
+            catch (Exception ex)
+            {
+
+                return (false, ex.StackTrace);
+            }
+
         }
     }
 }

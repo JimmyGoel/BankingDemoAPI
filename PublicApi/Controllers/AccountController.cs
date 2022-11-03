@@ -59,7 +59,7 @@ namespace PublicApi.Controllers
             if (result.IsSuccess)
             {
                 var token = _tokenServices.TokenServices(srLoginObj);
-                var resp = new { userName = result.clsUsers.userName, Token = token };
+                var resp = new { userName = result.clsUsers.userName, Token = token, Id=result.clsUsers.Id };
                 //return Ok(new { rst = result.clsUsers.ToJson(), tkn = token });
                 return Ok(resp);
             }
