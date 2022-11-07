@@ -1,5 +1,6 @@
 export interface IUserDetail {
     userName: string,
     token: string,
-    id?:number
+    id?:number,
+    photourl?:string
 }

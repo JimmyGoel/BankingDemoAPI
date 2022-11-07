@@ -9,7 +9,7 @@ import { IUserDetail } from '../_modle/user';
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl =environment.apiURl;
+  baseUrl = environment.apiURl;
 
   private currentUserSource = new ReplaySubject<IUserDetail>(1);
   currentUser$ = this.currentUserSource.asObservable();
@@ -25,9 +25,11 @@ export class AccountService {
           debugger;
           const user = resp;
           if (user) {
-            localStorage.setItem("users", JSON.stringify(user));
-            this.currentUserSource.next(user);
+            this.setCurrentUser(user);
+           // localStorage.setItem("users", JSON.stringify(user));
+           // this.currentUserSource.next(user);
           }
+          return user;
         })
       );
   }
@@ -39,17 +41,17 @@ export class AccountService {
           debugger;
           const user = resp;
           if (user) {
-            localStorage.setItem("users", JSON.stringify(user));
-            this.currentUserSource.next(user);
+            this.setCurrentUser(user);
           }
         })
       );
   }
 
-  setCurrentUser(user:IUserDetail){
+  setCurrentUser(user: IUserDetail) {
+    localStorage.setItem("users", JSON.stringify(user));
     this.currentUserSource.next(user);
   }
-  logout(){
+  logout() {
     localStorage.removeItem("users");
     this.currentUserSource.next(null!);
   }

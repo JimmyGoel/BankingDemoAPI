@@ -19,6 +19,7 @@ namespace PublicApi
             serviceProvider.AddScoped<IUser, clsUserServices>();
             serviceProvider.AddScoped<IAccountRegistor, clsAccountService>();
             serviceProvider.AddScoped<ILoginUser, clsAccountService>();
+            serviceProvider.AddScoped<IPhotoServices, PhotoServices>();
             serviceProvider.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             serviceProvider.AddAutoMapper(typeof(Startup));
             IMapper mapper = MapperProfile.RegisterMaps().CreateMapper();

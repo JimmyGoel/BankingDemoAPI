@@ -32,17 +32,23 @@ export class UserentityService {
 
   getUserEntityByID(Id: any) {
     const member = this.member.find(x => x.Id === Id);
-if(member!==undefined){
-  return of(member);
-}
+    if (member !== undefined) {
+      return of(member);
+    }
     return this.httpclient.get<IUserEntity>(this.baseUrl + 'user/' + Id);
   }
   userUpdatedetails(userDetail: any) {
     return this.httpclient.put(this.baseUrl + 'user/update-user', userDetail).pipe(
-      map(()=>{
-        const index=this.member.indexOf(userDetail);
-        this.member[index]=userDetail;
+      map(() => {
+        const index = this.member.indexOf(userDetail);
+        this.member[index] = userDetail;
       })
     );
+  }
+  SetIsmainPhoto(PhotoID: any) {
+    return this.httpclient.put(this.baseUrl + 'user/set-main-photo/'+PhotoID , PhotoID);
+  }
+  DeletePhoto(PhotoID: any) {
+    return this.httpclient.delete(this.baseUrl + 'user/Deletephoto/'+PhotoID);
   }
 }

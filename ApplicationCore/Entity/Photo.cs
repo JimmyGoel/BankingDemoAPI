@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApplicationCore.Entity
 {
@@ -11,5 +12,16 @@ namespace ApplicationCore.Entity
 
         public clsUserEntity userEntity { get; set; }
         public int userEntity_Fk { get; set; }
+        //public int GetPhotoId()
+        //{
+        //    return PhotoId.GetPhotoId();
+        //}
     }
+    //public static class stringExtension
+    //{
+    //    public static int GetPhotoId(this string photo)
+    //    {
+    //        return Convert.ToInt32(photo);
+    //    }
+    //}
 }

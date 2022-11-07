@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
+import { Observable, retry, take } from 'rxjs';
 import { AccountService } from '../_services/account.service';
 import { IUserDetail } from '../_modle/user';
 
@@ -23,6 +23,6 @@ export class JwtInterceptor implements HttpInterceptor {
       request = request.clone(
         { headers: request.headers.set('Authorization', 'Bearer ' + currentUser.token) });
     }
-    return next.handle(request);
+    return next.handle(request).pipe(retry(3));
   }
 }

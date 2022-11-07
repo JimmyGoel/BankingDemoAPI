@@ -15,8 +15,11 @@ export class NavComponent implements OnInit {
   loginmodule: any = {}
   logedInUser:string="";
   IsLogedIn: boolean = false;
+  PhotoUrl:string;
   constructor(public AccountService: AccountService, private router: Router,
-    private toaster: ToastrService) { }
+    private toaster: ToastrService) { 
+     // this.AccountService.setCurrentUser(JSON.parse(localStorage.getItem('users') as string));
+    }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -29,7 +32,7 @@ export class NavComponent implements OnInit {
       // this.AccountService.currentUser$.pipe(take(2)).subscribe((membera:any) => {
       //   debugger;
       //   // This is for user login detail below not corret
-      //   this.logedInUser=membera.userName;
+      //   this.PhotoUrl=membera.photourl;
       // })
       // this.logedInUser=JSON.parse(localStorage.getItem('users') as string)['userName']
       this.router.navigateByUrl('/members');
