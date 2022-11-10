@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Photo } from 'src/app/_modle/Iphoto';
 import { IUserEntity } from 'src/app/_modle/IuserEntity';
@@ -26,7 +27,8 @@ export class PhotoEditorComponent implements OnInit {
   response: string;
 
 
-  constructor(private accountService: AccountService,private userServices:UserentityService) {
+  constructor(private accountService: AccountService,
+    private userServices:UserentityService, private toastServices:ToastrService) {
     // this.accountService.currentUser$.pipe(take(1)).subscribe(resp =>
     //   { 
     //     console.log(resp);
@@ -61,7 +63,7 @@ export class PhotoEditorComponent implements OnInit {
   }
   DeletePhoto(event:any){
       //confirm("Are you sure want to delete??");
-
+      //this.toastServices.
     this.userServices.DeletePhoto(event).subscribe(resp=>{
       console.log(resp);
       this.userEntity.photos=this.userEntity.photos.filter(x=>x.Id!==event);
@@ -91,8 +93,13 @@ export class PhotoEditorComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status,header) => {
       debugger;
       if (response) {
-        const photo = JSON.parse(response);
+        const photo:Photo = JSON.parse(response);
         this.userEntity.photos.push(photo);
+        if(photo.IsMain){
+          this.User.photourl=photo.Url;
+          this.userEntity.PhotoUrl=photo.Url;
+          this.accountService.setCurrentUser(this.User);
+        }
       }
     }
   

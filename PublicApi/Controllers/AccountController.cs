@@ -42,7 +42,7 @@ namespace PublicApi.Controllers
             if (result.IsSuccess)
             {
                 var token = _tokenServices.TokenServices(srRegistorObj);
-                return Ok(new { rst = result.clsUsers.ToJson(), tkn = token });
+                return Ok(new { rst = result.clsUsers.ToJson(), tkn = token }) ;
             }
             return BadRequest(result.Errror);
         }
