@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PublicApi.DTO
 {
@@ -9,7 +7,7 @@ namespace PublicApi.DTO
     {
         public int Id { get; set; }
         public string userName { get; set; }
-        public int  Age { get; set; }
+        public int Age { get; set; }
         public string KnownUs { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime LastActive { get; set; } = DateTime.Now;

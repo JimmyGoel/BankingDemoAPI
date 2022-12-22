@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiURl:'http://localhost:7595/api/'
+  //apiURl:'http://localhost:7595/api/' // IIS Server
+  apiURl:'http://localhost:5000/api/' // Kestral Server
 };
 
 /*

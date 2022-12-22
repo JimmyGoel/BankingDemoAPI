@@ -5,10 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PublicApi.Services
 {
@@ -24,7 +22,8 @@ namespace PublicApi.Services
         {
             var claims = new List<Claim>
            {
-               new Claim(JwtRegisteredClaimNames.NameId,clsUser.userName)
+               new Claim(JwtRegisteredClaimNames.UniqueName,clsUser.userName),
+               new Claim(JwtRegisteredClaimNames.NameId,Convert.ToString(clsUser.Id))
            };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

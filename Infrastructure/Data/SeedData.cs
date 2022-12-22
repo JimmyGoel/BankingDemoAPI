@@ -1,12 +1,10 @@
 ﻿using ApplicationCore.Entity;
+using ApplicationCore.Extensions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationCore.Extensions;
-using System.Security.Cryptography;
-using System.IO;
 
 namespace Infrastructure.Data
 {
@@ -14,9 +12,9 @@ namespace Infrastructure.Data
     {
         public static async Task SeedUser(DataContext dataContext)
         {
-           if (await dataContext.Users.AnyAsync()) return;
-           var solutiondir = Directory.GetParent(Directory.GetCurrentDirectory()).GetDirectories()[4].FullName;
-           var userData = await System.IO.File.ReadAllTextAsync(solutiondir+ $"/Data/jsonSeeds.json");
+            if (await dataContext.Users.AnyAsync()) return;
+            var solutiondir = Directory.GetParent(Directory.GetCurrentDirectory()).GetDirectories()[4].FullName;
+            var userData = await System.IO.File.ReadAllTextAsync(solutiondir + $"/Data/jsonSeeds.json");
             var users = userData.FromListJson<clsUserEntity>();
             foreach (var item in users)
             {

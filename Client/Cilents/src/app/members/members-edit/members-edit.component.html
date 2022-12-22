@@ -12,7 +12,7 @@
     </div>
     <div class="col-4">
         <div class="card">
-            <img src="{{userEntity.PhotoUrl || '.assets/user.png'}}" alt="{{userEntity.userName}}"
+            <img src="{{userEntity.PhotoUrl || 'assets/user.png'}}" alt="{{userEntity.userName}}"
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
@@ -25,11 +25,11 @@
                 </div>
                 <div>
                     <strong>Last Active</strong>
-                    <p>{{userEntity.LastActive}}</p>
+                    <p>{{userEntity.LastActive | timeago}}</p>
                 </div>
                 <div>
                     <strong>User Sinces</strong>
-                    <p>{{userEntity.Created}}</p>
+                    <p>{{userEntity.Created | date:'dd MMM YYY'}}</p>
                 </div>
 
             </div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IUserEntity } from 'src/app/_modle/IuserEntity';
+import { IUserEntity } from 'src/app/_Interface/IuserEntity';
 
 @Component({
   selector: 'app-member-cart',

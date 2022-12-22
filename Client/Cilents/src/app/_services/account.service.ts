@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IUserDetail } from '../_modle/user';
+import { IUserDetail } from '../_Interface/user';
 
 
 @Injectable({

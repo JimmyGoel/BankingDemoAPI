@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PublicApi.DTO
 {
@@ -16,7 +13,7 @@ namespace PublicApi.DTO
         [Required] public string Country { get; set; }
 
         [Required]
-        [StringLength(8,MinimumLength =4)]
+        [StringLength(8, MinimumLength = 4)]
         public string Password { get; set; }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using ApplicationCore.Entity;
 using AutoMapper;
 using PublicApi.DTO;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PublicApi.Mapping
 {
@@ -24,9 +21,9 @@ namespace PublicApi.Mapping
 
                 config.CreateMap<LoginDTO, clsUserEntity>().ReverseMap();
                 config.CreateMap<Photo, PhotoDTO>().ReverseMap();
-                config.CreateMap<clsUserEntity,UserEntityDTO>()
-               .ForMember(dest=>dest.PhotoUrl,
-                opt=>opt.MapFrom(src=>src.photos.FirstOrDefault(x=>x.IsMain).Url))
+                config.CreateMap<clsUserEntity, UserEntityDTO>()
+               .ForMember(dest => dest.PhotoUrl,
+                opt => opt.MapFrom(src => src.photos.FirstOrDefault(x => x.IsMain).Url))
                 .ReverseMap();
                 config.CreateMap<UserUpdateDTO, clsUserEntity>().ReverseMap();
             });

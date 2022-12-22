@@ -1,7 +1,7 @@
 <div class="row" *ngIf="members">
     <div class="col-4">
         <div class="card">
-            <img src="{{members.PhotoUrl || '.assets/user.png'}}" alt="{{members.userName}}"
+            <img src="{{members.PhotoUrl || 'assets/user.png'}}" alt="{{members.userName}}"
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
@@ -14,11 +14,11 @@
                 </div>
                 <div>
                     <strong>Last Active</strong>
-                    <p>{{members.LastActive}}</p>
+                    <p>{{members.LastActive | timeago}}</p>
                 </div>
                 <div>
                     <strong>User Sinces</strong>
-                    <p>{{members.Created}}</p>
+                    <p>{{members.Created | date:"dd MMM yyy"}}</p>
                 </div>
 
             </div>

@@ -19,7 +19,7 @@ import { ServerErrorComponent } from './_errors/server-error/server-error.compon
 import { MemberCartComponent } from './members/member-cart/member-cart.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { MembersEditComponent } from './members/members-edit/members-edit.component';
-import { NgxSpinnerModule } from "ngx-spinner";
+
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
@@ -51,7 +51,7 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,FormsModule,BrowserAnimationsModule,
-    ReactiveFormsModule,SharedModule, NgxSpinnerModule
+    ReactiveFormsModule,SharedModule, 
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},

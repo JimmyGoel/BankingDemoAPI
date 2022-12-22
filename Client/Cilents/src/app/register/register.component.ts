@@ -61,6 +61,7 @@ export class RegisterComponent implements OnInit {
       this.ValidationError=error;
       //this.toastr.error(error);
     })
+    
   }
   cancel() {
     this.cancleRegister.emit(false);

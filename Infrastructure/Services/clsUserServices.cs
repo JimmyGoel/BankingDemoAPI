@@ -1,46 +1,62 @@
 ﻿using ApplicationCore.Entity;
 using ApplicationCore.Exceptions;
+using ApplicationCore.Extensions;
 using ApplicationCore.Interfaces;
 using AutoMapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class clsUserServices : IUser
+    public class clsUserServices : IUser, IuserExtend
     {
-        private readonly DataContext dbContext;
-        private readonly IAppLogger<clsUserServices> logger;
-        private readonly IMapper mapper;
+        //private readonly DataContext dbContext;
+        //private readonly IAppLogger<clsUserServices> logger;
+        //private readonly IMapper mapper;
+        private readonly (DataContext dbContext, IAppLogger<clsUserServices> logger, IMapper mapper) GlobalVar;
         public clsUserServices(IAppLogger<clsUserServices> _logger, DataContext _dbContext, IMapper mapper)
         {
-            this.dbContext = _dbContext;
-            this.logger = _logger;
-            this.mapper = mapper;
+            //this.dbContext = _dbContext;
+            //this.logger = _logger;
+            //this.mapper = mapper;
+            this.GlobalVar.dbContext = _dbContext;
+            this.GlobalVar.logger = _logger;
+            this.GlobalVar.mapper = mapper;
         }
-        public async Task<(bool IsSuccess, IEnumerable<clsUserEntity> clsUsers, string Errror)> GetuserAsync()
+        public async Task<(bool IsSuccess, PagedList<clsUserEntity> clsUsers, string Errror)> GetuserAsync(UserParam userParam)
         {
             try
             {
-                logger.LogInformation("Query user");
-                var users = await dbContext.Users
-                                .Include(p => p.photos).ToListAsync();
+                GlobalVar.logger.LogInformation("Query user");
+                var users = GlobalVar.dbContext.Users.Include(p => p.photos)
+                    .Where(u => u.userName != userParam.CurrentUser)
+                    .Where(u => u.Gender == userParam.Gender)
+                    .AsNoTracking();
+               
+
+                users = users.Where(u => u.DateOfBirth >= userParam.maxAge.GetmaxAge() && u.DateOfBirth <= userParam.minAge.GetminAge());
+
+                users = userParam.Orderby switch
+                {
+                    "created" => users.OrderByDescending(u => u.Created),
+                    _ => users.OrderByDescending(u => u.LastActive),
+                };
+
                 if (users != null && users.Any())
                 {
-                    logger?.LogInformation($"{users.Count} customer(s) found");
+                    var pagelist = await PagedList<clsUserEntity>.CreateAsync(users, userParam.PageNumber, userParam.PageSize);
+                    GlobalVar.logger?.LogInformation($"{pagelist.Count} customer(s) found");
                     //var result = mapper.Map<IEnumerable<clsUserEntity>(users);
-                    return (true, users, null);
+                    return (true, pagelist, null);
                 }
                 return (false, null, "Not Found");
             }
             catch (Exception Ex)
             {
-                logger?.LogError(Ex.ToString());
+                GlobalVar.logger?.LogError(Ex.ToString());
                 return (false, null, Ex.ToString());
                 throw new NotFoundExceptions();
             }
@@ -50,13 +66,13 @@ namespace Infrastructure.Services
         {
             try
             {
-                logger.LogInformation("Query user");
-                var user = await dbContext.Users
+                GlobalVar.logger.LogInformation("Query user");
+                var user = await GlobalVar.dbContext.Users
                      .Include(p => p.photos).FirstOrDefaultAsync(option =>
                      (Id == null ? option.userName == userName : option.Id == Id));
                 if (user != null)
                 {
-                    logger?.LogInformation($"{user} customer(s) found");
+                    GlobalVar.logger?.LogInformation($"{user} customer(s) found");
                     //var result = mapper.Map<IEnumerable<clsUserEntity>(users);
                     return (true, user, null);
                 }
@@ -64,20 +80,23 @@ namespace Infrastructure.Services
             }
             catch (Exception Ex)
             {
-                logger?.LogError(Ex.ToString());
+                GlobalVar.logger?.LogError(Ex.ToString());
                 return (false, null, Ex.ToString());
                 throw new NotFoundExceptions();
             }
         }
 
-
+        public async Task<bool> SaveAllChanges()
+        {
+            return await GlobalVar.dbContext.SaveChangesAsync() > 0;
+        }
 
         public async Task<(bool Issucess, string error)> UserUpdateDetails(clsUserEntity clsUsers)
         {
             try
             {
-                dbContext.Entry(clsUsers).State = EntityState.Modified;
-                await dbContext.SaveChangesAsync();
+                GlobalVar.dbContext.Entry(clsUsers).State = EntityState.Modified;
+                await GlobalVar.dbContext.SaveChangesAsync();
                 return (true, "No Error");
             }
             catch (Exception ex)

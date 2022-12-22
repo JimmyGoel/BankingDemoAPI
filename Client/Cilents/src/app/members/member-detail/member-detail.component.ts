@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { IUserEntity } from 'src/app/_modle/IuserEntity';
+import { IUserEntity } from 'src/app/_Interface/IuserEntity';
 import { UserentityService } from 'src/app/_services/userentity.service';
 
 @Component({

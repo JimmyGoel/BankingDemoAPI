@@ -26,6 +26,7 @@ namespace PublicApi
             services.AddControllers();
             services.AddCors();
             services.AddTokenAutication(Configuration);
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +36,7 @@ namespace PublicApi
             //{
             //    app.UseDeveloperExceptionPage();
             //}
+            //app.UseWelcomePage();
             app.UseMiddleware<ExecptionMiddleware>();
             app.UseHttpsRedirection();
 
