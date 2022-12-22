@@ -1,17 +1,10 @@
+using ApplicationCore.Entity;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using PublicApi.MiddleWare;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PublicApi
 {
@@ -27,11 +20,13 @@ namespace PublicApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CloudinarySettings>(Configuration.GetSection("cloudinarySettings"));
             services.ConfigurationServices();
             services.AddPersistence(Configuration);
             services.AddControllers();
             services.AddCors();
             services.AddTokenAutication(Configuration);
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +36,7 @@ namespace PublicApi
             //{
             //    app.UseDeveloperExceptionPage();
             //}
+            //app.UseWelcomePage();
             app.UseMiddleware<ExecptionMiddleware>();
             app.UseHttpsRedirection();
 

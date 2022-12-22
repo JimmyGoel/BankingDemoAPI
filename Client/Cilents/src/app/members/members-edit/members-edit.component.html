@@ -1,0 +1,67 @@
+
+
+<div class="row" *ngIf="userEntity">
+    <div class="col-4">
+        <h1>Your Profile</h1>
+    </div>
+    <div class="col-8" >
+        <div class="alert alert-info" *ngIf="EditForm.dirty">
+                <strong>Information: </strong>
+                You have made changes. Any unsaved changes will lost
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img src="{{userEntity.PhotoUrl || 'assets/user.png'}}" alt="{{userEntity.userName}}"
+                class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Location</strong>
+                    <p>{{userEntity.city}},{{userEntity.country}}</p>
+                </div>
+                <div>
+                    <strong>Age</strong>
+                    <p>{{userEntity.Age}}</p>
+                </div>
+                <div>
+                    <strong>Last Active</strong>
+                    <p>{{userEntity.LastActive | timeago}}</p>
+                </div>
+                <div>
+                    <strong>User Sinces</strong>
+                    <p>{{userEntity.Created | date:'dd MMM YYY'}}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <button [disabled]="!EditForm.dirty" type="submit" form="editForm" class="btn btn-success btn-block mt6">Save Changes</button>
+        </div>
+    </div>
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="About {{userEntity.userName}}">
+                <form #EditForm="ngForm" id="editForm" (ngSubmit)="updateDataMember()"> 
+                    <h4>Description</h4>
+                    <textarea class="form-control" [(ngModel)]="userEntity.Introduction" name="Introduction" rows="6" cols=""></textarea>
+                    <h4 class="mt-2">Looking For</h4>
+                    <textarea class="form-control" [(ngModel)]="userEntity.LookingFor" name="LookingFor" rows="6" cols=""></textarea>
+                    <h4 class="mt-2">Intrest</h4>
+                    <textarea class="form-control" [(ngModel)]="userEntity.Intrested" name="Intrested" rows="6" cols=""></textarea>
+                    <h4 class="mt-2">Location Detail</h4>
+                    <div class="form-inline">
+                        <label for="city">City: </label>
+                        <input [(ngModel)]="userEntity.city" type="text" name="city" class="form-control mx-2">
+                        <label for="city">Country: </label>
+                        <input [(ngModel)]="userEntity.country" type="text" name="country" class="form-control mx-2">
+                    </div>
+                </form>
+
+            </tab>
+            <tab heading="Edit Photo">
+                <app-photo-editor [userEntity]="userEntity"></app-photo-editor>
+            </tab>
+            
+        </tabset>
+    </div>
+</div>

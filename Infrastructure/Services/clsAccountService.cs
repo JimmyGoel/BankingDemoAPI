@@ -29,7 +29,8 @@ namespace Infrastructure.Services
             {
                 logger.LogInformation("Query user");
 
-                var UserExists = await dbContext.Users.SingleOrDefaultAsync(x => x.userName == registor.userName);
+                var UserExists = await dbContext.Users
+                    .Include(p => p.photos).SingleOrDefaultAsync(x => x.userName == registor.userName);
 
                 if (UserExists != null)
                 {
@@ -43,7 +44,7 @@ namespace Infrastructure.Services
                         if (ComputeHash[i] != UserExists.PasswordHash[i]) return (false, null, "Password Not Matched");
                     }
 
-                   // var resultobj = mapper.Map<clsUserEntity>(registor);
+                    // var resultobj = mapper.Map<clsUserEntity>(registor);
                     return (true, UserExists, null);
                 }
                 return (false, null, "User Not Exists");

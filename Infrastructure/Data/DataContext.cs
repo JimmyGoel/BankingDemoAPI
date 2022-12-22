@@ -1,8 +1,5 @@
 ﻿using ApplicationCore.Entity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Infrastructure.Data
 {
@@ -13,5 +10,6 @@ namespace Infrastructure.Data
         }
 
         public DbSet<clsUserEntity> Users { get; private set; }
+        //  public DbSet<Photo> photos { get; private set; }
     }
 }

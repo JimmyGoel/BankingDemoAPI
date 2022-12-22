@@ -1,12 +1,7 @@
-﻿using ApplicationCore.Interfaces;
-using Infrastructure.Data;
-using Infrastructure.Services;
+﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Infrastructure
 {
@@ -20,7 +15,7 @@ namespace Infrastructure
                     b => b.MigrationsAssembly(typeof(DataContext).Assembly.FullName)));
 
             //services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-          
+
         }
     }
 }

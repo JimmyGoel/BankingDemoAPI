@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //apiURl:'http://localhost:7595/api/' // IIS Server
+  apiURl:'http://localhost:5000/api/' // Kestral Server
 };
 
 /*

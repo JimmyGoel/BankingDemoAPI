@@ -16,6 +16,16 @@ import { SharedModule } from './_modules/shared.module';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './_errors/not-found/not-found.component';
 import { ServerErrorComponent } from './_errors/server-error/server-error.component';
+import { MemberCartComponent } from './members/member-cart/member-cart.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { MembersEditComponent } from './members/members-edit/members-edit.component';
+
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { DateInputComponent } from './_forms/date-input/date-input.component';
+
+
 
 @NgModule({
   declarations: [
@@ -28,16 +38,25 @@ import { ServerErrorComponent } from './_errors/server-error/server-error.compon
     ListsComponent,
     MessagesComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    MemberCartComponent,
+    MembersEditComponent,
+    PhotoEditorComponent,
+    TextInputComponent,
+    DateInputComponent,
+ 
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,FormsModule,BrowserAnimationsModule,
-    ReactiveFormsModule,SharedModule
+    ReactiveFormsModule,SharedModule, 
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:LoadingInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]
 })

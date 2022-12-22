@@ -1,0 +1,15 @@
+<div class="form-group">
+    <input type={{type}} 
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    class="form-control" 
+    [formControl]="$any(ngControl.control)"
+     placeholder={{label}}>
+     <div *ngIf="ngControl.control?.hasError('required') "
+     class="invalid-feedback">Please Enter a {{label}}</div>
+     <div *ngIf="ngControl.control?.hasError('minlength') "
+      class="invalid-feedback">Please Enter a minlength {{label}}</div>
+     <div *ngIf="ngControl.control?.hasError('maxlength') " 
+     class="invalid-feedback">Please Enter a  maxLength {{label}}</div>
+     <div *ngIf="ngControl.control?.hasError('isMatching') "
+      class="invalid-feedback">Please Enter a {{label}}</div>
+</div>
