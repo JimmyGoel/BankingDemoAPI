@@ -34,7 +34,7 @@ namespace Infrastructure.Services
                 var users = GlobalVar.dbContext.Users.Include(p => p.photos)
                     .Where(u => u.userName != userParam.CurrentUser)
                     .Where(u => u.Gender == userParam.Gender)
-                    .AsNoTracking();
+                    .AsNoTracking();  
                
 
                 users = users.Where(u => u.DateOfBirth >= userParam.maxAge.GetmaxAge() && u.DateOfBirth <= userParam.minAge.GetminAge());
